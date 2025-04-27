@@ -37,7 +37,12 @@ app.post('/api/post', async (req, res) => {
 
 app.put('/api/put/:id', async (req, res) => {
     const tarefa = await Tarefa.findById(req.params.id);
-    tarefa.statusRealizada = req.body.statusRealizada;
+    if (req.body.descricao !== undefined) {
+        tarefa.descricao = req.body.descricao;
+    }
+    if (req.body.statusRealizada !== undefined) {
+        tarefa.statusRealizada = req.body.statusRealizada;
+    }
     await tarefa.save();
     res.json(tarefa);
 });
